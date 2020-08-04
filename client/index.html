@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Twitter-of-joke</title>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/skeleton/2.0.4/skeleton.min.css"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1 class="title">Joke-Twitter😂</h1>
+      </header>
+      <main>
+        <form action="">
+          <div class="row">
+            <!-- <div class="six columns"> -->
+            <div class="u-half-width container">
+              <label for="name">Name</label>
+              <input class="u-full-width" type="text" name="name" id="name" />
+              <label for="content">Make me laugh</label>
+              <textarea
+                class="u-full-width"
+                name="content"
+                id="content"
+                cols="30"
+                rows="10"
+              ></textarea>
+              <button class="button-primary" type="submit">
+                Send me u'r Joke😂
+              </button>
+            </div>
+            <!-- </div> -->
+          </div>
+        </form>
+        <div class="u-full-width title" id="loading_element">
+          <img src="loading.svg" alt="loading indicator" />
+        </div>
+      </main>
+    </div>
+    <script src="index.js"></script>
+  </body>
+</html>
