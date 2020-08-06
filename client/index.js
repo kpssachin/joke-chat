@@ -32,19 +32,22 @@ form.addEventListener("submit", (event) => {
       form.reset(); // reset the form
       loadingElement.classList.add('hidden');
       form.classList.remove('hidden');
+      getDB();
     });
 });
 
 //TODO: get the details from database
 function getDB() {
   const listElement = document.querySelector('#list');
+  listElement.innerHTML = ''; // clear the dom list then re append the list
   fetch(API_URL)
     .then(res => res.json())
     .then(result => {
       console.log("getDB -> result", result)
+      result.reverse();
       result.forEach(element => {
         const divElement = document.createElement('div');
-        divElement.className = "one-half column";
+        // divElement.className = "one-half column";
         const header = document.createElement('h3');
         header.textContent = element.name;
         const content = document.createElement('p');

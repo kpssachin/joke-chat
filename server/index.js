@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const functions = require('./functions');
 const monk = require('monk');
+const rateLimit = require("express-rate-limit");
 
 const app = express();
 const db = monk('localhost/joketwitter'); // db name
@@ -12,6 +13,10 @@ app.use(express.json()) // body parser
 // app.use(express.bodyParser());
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(bodyParser.json());
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 1 // limit each IP to 100 requests per windowMs
+});
 
 // get request
 app.get('/', (request, response) => {
@@ -21,6 +26,13 @@ app.get('/', (request, response) => {
   });
 })
 
+// get request to get data
+app.get('/details',(req,res)=>{
+  joke.find().then(result=>res.json(result))
+})
+
+//  apply to all requests
+app.use(limiter);
 // post request
 app.post('/details', (request, response) => {
   if (functions.isValid(request.body)) {
@@ -43,10 +55,6 @@ app.post('/details', (request, response) => {
       message: 'missing keys'
     })
   }
-})
-// get request to get data
-app.get('/details',(req,res)=>{
-  joke.find().then(result=>res.json(result))
 })
 
 app.listen(5000, () => {
